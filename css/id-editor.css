@@ -1,0 +1,66 @@
+/* styles copied from OSM id-editor */
+
+
+
+nav.primary .user-menu{
+	border:1px solid #cccccc;
+	border-radius:3px;
+	margin-left:10px
+}
+
+
+nav.primary .user-menu a{
+	padding:5px 15px
+}
+
+nav.primary .user-menu.logged-in>a{
+	padding:0
+}
+
+nav.primary .user-menu.logged-in>a>.user-button{
+	line-height:1.8;
+	padding:5px 10px 3px 6px;
+	display:inline-block;
+	color:#888888;
+	text-decoration:none:
+}
+
+
+
+nav.primary .caret{
+	border-top-color:#cccccc;
+	margin-top:9px
+}
+
+nav.primary img.user_thumbnail_tiny{
+	border:0;
+	vertical-align:top;
+	margin-top:0px;
+	margin:4px 0 0 4px;
+	border-radius:2px
+}
+
+
+
+
+.caret{
+	display:inline-block;
+	width:0;
+	height:0;
+	vertical-align:top;
+	border-top:4px solid #000000;
+	border-right:4px solid transparent;
+	border-left:4px solid transparent;
+	content:""
+}
+
+.dropdown .caret{
+	margin-top:8px;
+	margin-left:2px
+}
+
+
+
+
+
+

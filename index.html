@@ -1,215 +1,142 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  
-  <script type="text/javascript" src="jquery-ui/jquery.js"></script>
-  <script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="jquery-ui/jquery.dropdown.js"></script> 
-  
-  <link rel="stylesheet" type="text/css" href="css/mw-ui.css" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="jquery-ui/jquery-ui.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/id-editor.css" />
-  <link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css" rel="stylesheet" /> 
-  <link rel="stylesheet" type="text/css" href="css/wikimaps-style.css" media="screen and (min-width: 722px)" rel="stylesheet" />
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<title>Wikimaps - HTML structure</title>
 
-  <meta content="OpenStreetMap is the free wiki world map." name="description" />
-  <title>Wikimaps - HTML structure</title>
-</head>
+		<link rel="stylesheet" type="text/css" href="css/mw-ui.css" />
+		<link rel="stylesheet" type="text/css" href="jquery-ui/jquery-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/id-editor.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wikimaps-style.css" />
 
-  <body>
+		<script src="jquery-ui/jquery.js"></script>
+		<script src="jquery-ui/jquery-ui.min.js"></script>
+		<script src="jquery-ui/jquery.dropdown.js"></script>
+	</head>
+	<body>
+		<div id="id-container" class="id-container mode-select">
+			<!-- LEFT column starts-->
+			<div id="sidebar" class="col4">
+				<!-- TABS starts-->
+				<div id="tabs">
+					<ul>
+						<li><a href="#main"><img src="icons/icon_wikidata.png" /><br/>Wikimaps</a></li>
+						<li><a href="#maps"><img src="icons/icon_maps.png" /><br/>Maps</a></li>
+						<li><a href="#tools"><img src="icons/icon_tools.png" /><br/>Tools</a></li>
+						<li><a href="#projects"><img src="icons/icon_projects.png" /><br/>Projects</a></li>
+					</ul>
 
+					<!-- MAIN tab starts -->
+					<div id="main" class="side">
+						<h2>Welcome!</h2>
+					</div>
+					<!-- MAIN tab ends -->
 
-    <div id="id-container" class="id-container mode-select">
+					<!-- MAPS tab starts -->
+					<div id="maps" class="side">
+						<h2>Maps</h2>
+						<div>
+							<input class="mw-ui-input" placeholder="Search maps">
+						</div>
+					</div>
+					<!-- MAPS tab ends-->
 
-        
-        
-        
-        <!-- LEFT column starts-->
-        <div id="sidebar" class="col4">
-        
-            <!-- TABS starts-->
-            <div id="tabs">
-                <ul>
-                     <li><a href="#main"><img src="icons/icon_wikidata.png" /><br/>Wikimaps</a></li>
-                     <li><a href="#maps"><img src="icons/icon_maps.png" /><br/>Maps</a></li>
-                     <li><a href="#tools"><img src="icons/icon_tools.png" /><br/>Tools</a></li>
-                     <li><a href="#projects"><img src="icons/icon_projects.png" /><br/>Projects</a></li>
-                </ul>
-                
-                <!-- MAIN tab starts -->
-                <div id="main" class="side">
-                    <h2>Welcome!</h2>
-                </div>
-                <!-- MAIN tab ends -->
-                
-                
-                <!-- MAPS tab starts -->
-                <div id="maps" class="side">
-                    <h2>Maps</h2>
-                    <div>
-                        <input class="mw-ui-input" placeholder="Search maps">
-                    </div>
+					<!-- TOOLS tab starts -->
+					<div id="tools" class="side">
+						<h2>Tools</h2>
+						<div>
+							<button class="mw-ui-button">Pin</button>
+							<button class="mw-ui-button">Rotate and Scale</button>
+							<button class="mw-ui-button">Warp with Warper</button>
+						</div>
+						<h2>Control Points</h2>
+						<table>
+							<tr>
+								<th></th>
+								<th>mapX</th>
+								<th>mapY</th>
+								<th>pixelX</th>
+								<th>pixelY</th>
+							</tr>
+							<tr>
+								<td><img src="icons/marker.png"/></td>
+								<td>23.66782</td>
+								<td>2356.6678</td>
+								<td>23.66782</td>
+								<td>2322.6678</td>
+								<td><img src="icons/trashbin.png"/></td>
+							</tr>
+							<tr>
+								<td><img src="icons/marker.png"/></td>
+								<td>2343.4568</td>
+								<td>2356.6678</td>
+								<td>23.66782</td>
+								<td>2322.6678</td>
+								<td><img src="icons/trashbin.png"/></td>
+							</tr>
+							<tr>
+								<td><img src="icons/marker.png"/></td>
+								<td>4343.4568</td>
+								<td>2856.6678</td>
+								<td>233.66782</td>
+								<td>32.6678</td>
+								<td><img src="icons/trashbin.png"/></td>
+							</tr>
+						</table>
 
+						<div class="selectDiv" data-dropdown="#dropdown-1">
+							<div class="bold_list">Choose your image type</div>
+						</div>
+						<!-- Static dropdowns -->
+						<div id="dropdown-1" class="dropdown">
+							<ul class="dropdown-menu">
+								<li><a href="#1"><div class="bold_list">Choose your image type</div>Modern map</a></li>
+								<li><a href="#2"><div class="bold_list">Choose your image type</div>Historical map</a></li>
+								<li><a href="#3"><div class="bold_list">Choose your image type</div>Aerial image</a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- TOOLS tab ends -->
 
+					<!-- PROJECTS tab starts -->
+					<div id="projects" class="side">
+						<h2>Projects</h2>
+					</div>
+					<!-- PROJECTS tab ends -->
+				</div>
+				<!-- TABS ends-->
+		</div>
+		<!-- LEFT column ends-->
 
-                </div>
-                <!-- MAPS tab ends-->
-                
-                
-                <!-- TOOLS tab starts -->
-                <div id="tools" class="side">
-                    <h2>Tools</h2>
-                    <div>
-                         <button class="mw-ui-button">Pin</button>
-                        <button class="mw-ui-button">Rotate and Scale</button>
-                        <button class="mw-ui-button">Warp with Warper</button>
-                    </div>
-                    <h2>Control Points</h2>
-                    <table>
-                        <tr>    
-                            <th></th>
-                            <th>mapX</th>
-                            <th>mapY</th>
-                            <th>pixelX</th>
-                            <th>pixelY</th>
-                        </tr>
-                        <tr>
-                            <td><img src="icons/marker.png"/></td>
-                            <td>23.66782</td>
-                            <td>2356.6678</td>
-                            <td>23.66782</td>
-                            <td>2322.6678</td>
-                            <td><img src="icons/trashbin.png"/></td>
-                        </tr>
-                        <tr>
-                            <td><img src="icons/marker.png"/></td>
-                            <td>2343.4568</td>
-                            <td>2356.6678</td>
-                            <td>23.66782</td>
-                            <td>2322.6678</td>
-                            <td><img src="icons/trashbin.png"/></td>
-                        </tr>
-                        <tr>
-                            <td><img src="icons/marker.png"/></td>
-                            <td>4343.4568</td>
-                            <td>2856.6678</td>
-                            <td>233.66782</td>
-                            <td>32.6678</td>
-                            <td><img src="icons/trashbin.png"/></td>
-                        </tr>
-                   </table>
-                   
-                    
-                        <div class="selectDiv" data-dropdown="#dropdown-1">
-                            <div class="bold_list">Choose your image type</div>
-                        </div>
-                        <!-- Static dropdowns -->
-                        <div id="dropdown-1" class="dropdown">
-                            <ul class="dropdown-menu">
-                                <li><a href="#1"><div class="bold_list">Choose your image type</div>Modern map</a></li>
-                                <li><a href="#2"><div class="bold_list">Choose your image type</div>Historical map</a></li>
-                                <li><a href="#3"><div class="bold_list">Choose your image type</div>Aerial image</a></li>
+		<!-- RIGHT column starts-->
+		<div id="content">
+			<nav class="primary"> 
+				<div id="nav_top_right">
+					<!-- USER MENU starts -->
+					<!-- TODO -->
+					<!-- USER MENU ends -->
+				</div>
+			</nav>
 
-                            </ul>
-                        </div>
-                        
-                </div>
-                <!-- TOOLS tab ends -->
-                
-                
-                <!-- PROJECTS tab starts -->
-                <div id="projects" class="side">
-                    <h2>Projects</h2>
-                </div>
-                <!-- PROJECTS tab ends -->
+			<div id="map">
+				<h2>Leaflet here</h2>
+			</div>
+		</div>
+		<!-- RIGHT column ends -->
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#tabs").tabs();
+		});
 
+		$('.selectDefault').text('2');
 
-            </div>
-            <!-- TABS ends-->
-            
-        </div>
-        <!-- LEFT column ends-->
-
-
-
-
-
-
-        <!-- RIGHT column starts-->
-        <div id="content">
-        
-            <nav class="primary"> 
-            
-                <div id="nav_top_right">
-                    <div style="display:inline-block;">some text</div>
-                    
-                    <!-- USER MENU starts -->
-                    <div class="user-menu logged-in">
-                        <a href="#" data-dropdown="#usermenu">
-                            <img class="user_thumbnail_tiny" width="25" height="25" src="icons/avatar.png" alt=""></img><span class="user-button">
-                                <span class="username">User Name</span>
-                                <b class="caret"></b>
-                            </span>
-                        </a>
-                    </div>
-                    <!-- USER MENU ends -->
-                    
-                </div>
-
-           </nav>
-           
-           <div id="map">
-                <h2 id="leaflet_header">Leaflet here</h2>
-           </div>
-           
-           <div id="infobox">
-                Some information
-           </div>
-        </div>
-        <!-- RIGHT column ends -->
-
-    </div>
-
-  
-    <script type="text/javascript">
-         
-        $(document).ready(function(){
-            $("#tabs").tabs();
-        });
-
-        $('.selectDefault').text('2');
-
-        $('.selectBox').on('change',function(){
-           var defaulttext2 = $('.selectBox').find(":selected").text(); 
-            $('.selectDefault').text(defaulttext2);
-        });
-
-    </script>
-    
-                    <div id="usermenu" class="dropdown">
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/user/username/inbox">
-                                    <span class="count-number"></span>
-                                      My Messages
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/user/username">My Profile</a>
-                            </li>
-                            <li></li>
-                            <li class="divider"></li>
-                            <li></li>
-                            <li>
-                                <a href="/logout">
-
-                                Log Out
-
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-  </body>
+		$('.selectBox').on('change',function(){
+			var defaulttext2 = $('.selectBox').find(":selected").text(); 
+			$('.selectDefault').text(defaulttext2);
+		});
+	</script>
+	</body>
 </html>

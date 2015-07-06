@@ -6,19 +6,16 @@
 		<title>Wikimaps - HTML structure</title>
 
 		<link rel="stylesheet" type="text/css" href="css/mw-ui.css" />
-		<link rel="stylesheet" type="text/css" href="jquery-ui/jquery-ui.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/id-editor.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css"/>
 		<link rel="stylesheet" type="text/css" href="css/wikimaps-style.css" />
 
 		<script src="jquery-ui/jquery.js"></script>
-		<script src="jquery-ui/jquery-ui.min.js"></script>
-		<script src="jquery-ui/jquery.dropdown.js"></script>
+		<script src="jquery-ui/jquery-ui.js"></script>
 	</head>
 	<body>
 		<div id="id-container" class="id-container mode-select">
 			<!-- LEFT column starts-->
-			<div id="sidebar" class="col4">
+			<div class="col4 sidebar">
 				<!-- TABS starts-->
 				<div id="tabs">
 					<ul>
@@ -113,11 +110,22 @@
 		<!-- RIGHT column starts-->
 		<div id="content">
 			<nav class="primary"> 
-				<div id="nav_top_right">
+				<div class="rigth">
 					<!-- USER MENU starts -->
-					<!-- TODO -->
+					<div class="user-menu logged-in">
+						<a href="#usermenu" id="usermenu-trigger">
+							<img class="user_thumbnail_tiny" width="25" height="25" src="icons/avatar.png" alt=""></img><span class="user-button">
+								<span class="username">User Name</span>
+								<b class="caret"></b>
+							</span>
+						</a>
+					</div>
+					<ul class="dropdown usermenu">
+						<li><a href="#" id="first-dropdown-link">My Settings</a></li>
+						<li><a href="#">My Maps</a></li>
+						<li><a href="#">Logout</a></li>
+					</ul>
 					<!-- USER MENU ends -->
-				</div>
 			</nav>
 
 			<div id="map">
@@ -127,15 +135,30 @@
 		<!-- RIGHT column ends -->
 	</div>
 	<script type="text/javascript">
-		$(document).ready(function(){
+		$(document).ready(function() {
 			$("#tabs").tabs();
 		});
 
 		$('.selectDefault').text('2');
 
-		$('.selectBox').on('change',function(){
+		$('.selectBox').on('change', function() {
 			var defaulttext2 = $('.selectBox').find(":selected").text(); 
 			$('.selectDefault').text(defaulttext2);
+		});
+
+
+		$('#usermenu-trigger').on('click', function() {
+			if ($('.dropdown').is(':visible')) {
+				$('.dropdown').slideUp();
+			} else {
+				console.log('down/focus');
+				$('.dropdown').slideDown();
+				$('#first-dropdown-link').focus();
+			}
+		});
+
+		$('.dropdown').focusout(function() {
+			$('.dropdown').slideUp();
 		});
 	</script>
 	</body>

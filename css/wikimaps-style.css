@@ -52,6 +52,7 @@ nav {
 /* ALERTS */
 
 .alert-container {
+  position: relative;
   float: right;
   min-width: 30%;
   right: 0;

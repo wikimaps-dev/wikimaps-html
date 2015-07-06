@@ -110,11 +110,6 @@ nav  {
   border: 1px solid rgb(204, 204, 204);
 }
 
-#nav_top_right {
-  position: absolute;
-  right: 0px;
-}
-
 #infobox {
   position: absolute;
   bottom: 0px;
@@ -142,11 +137,6 @@ nav  {
   padding: 0px;
   position:  relative;
   z-index: 100;
-}
-
-
-.dropdown-menu li > a > div {
-  font-size: 1em;
 }
 
 .bold_list  {
@@ -214,9 +204,29 @@ table tr {
   border: none;
 }
 
-
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
   background: white;
+}
+
+.rigth {
+  float: right;
+}
+
+.dropdown {
+  left: auto;
+  right: -1px;
+  border-radius: 3px 0 3px 3px;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: white;
+  list-style: none;
+  padding: 5px 0;
+  font-size: 14px;
+  margin: 0;
+  display: none;
+}
+
+.dropdown li {
+  padding-left: 5px;
 }

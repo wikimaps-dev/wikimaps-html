@@ -110,11 +110,22 @@
 		<!-- RIGHT column starts-->
 		<div id="content">
 			<nav class="primary"> 
-				<div id="nav_top_right">
+				<div class="rigth">
 					<!-- USER MENU starts -->
-					<!-- TODO -->
+					<div class="user-menu logged-in">
+						<a href="#usermenu" id="usermenu-trigger">
+							<img class="user_thumbnail_tiny" width="25" height="25" src="icons/avatar.png" alt=""></img><span class="user-button">
+								<span class="username">User Name</span>
+								<b class="caret"></b>
+							</span>
+						</a>
+					</div>
+					<ul class="dropdown usermenu">
+						<li><a href="#" id="first-dropdown-link">My Settings</a></li>
+						<li><a href="#">My Maps</a></li>
+						<li><a href="#">Logout</a></li>
+					</ul>
 					<!-- USER MENU ends -->
-				</div>
 			</nav>
 
 			<div id="map">
@@ -124,15 +135,30 @@
 		<!-- RIGHT column ends -->
 	</div>
 	<script type="text/javascript">
-		$(document).ready(function(){
+		$(document).ready(function() {
 			$("#tabs").tabs();
 		});
 
 		$('.selectDefault').text('2');
 
-		$('.selectBox').on('change',function(){
+		$('.selectBox').on('change', function() {
 			var defaulttext2 = $('.selectBox').find(":selected").text(); 
 			$('.selectDefault').text(defaulttext2);
+		});
+
+
+		$('#usermenu-trigger').on('click', function() {
+			if ($('.dropdown').is(':visible')) {
+				$('.dropdown').slideUp();
+			} else {
+				console.log('down/focus');
+				$('.dropdown').slideDown();
+				$('#first-dropdown-link').focus();
+			}
+		});
+
+		$('.dropdown').focusout(function() {
+			$('.dropdown').slideUp();
 		});
 	</script>
 	</body>

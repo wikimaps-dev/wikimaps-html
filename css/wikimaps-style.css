@@ -16,99 +16,40 @@ body {
   overflow: hidden;
 }
 
-.id-container {
+/* MAIN ELEMENTS */
+
+.container {
   height: 100%;
   width: 100%;
   position: fixed;
-  min-width: 768px;
 }
 
-#content {
+.content {
   position: relative;
   overflow: hidden;
   height: 100%;
   background-color: rgba(215, 215, 215, 1);
 }
 
-.sidebar-component .body {
-  width: 100%;
-  overflow: auto;
-  top: 60px;
-  bottom: 0;
-  position: absolute;
-}
-
 .sidebar {
-  position: relative;
+  position: fixed;
   float: left;
-  height: 100%;
+  height: auto;
   width: 360px;
-  z-index: 2;
+  z-index: 1000;
   background: #f6f6f6;
   border-color: black;
   border-width: 0px 0px 1px 0px;
 }
 
-.sidebar-component {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-nav  {
+nav {
   height: 50px;
   width: 100%;
   background-color: rgba(255, 255, 255, 1);
   display: inline-block;
 }
 
-#tabs {
-  font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
-  font-size: 1.1em;
-}
-
-#tabs li  {
-  text-align: center;
-  box-sizing: border-box;
-  list-style: none;
-  float: left;
-}
-
-#tabs a  {
-  display: block;
-}
-
-#tabs li.ui-state-default a {
-  width: 90px;
-}
-
-#tabs li.ui-state-default {
-  width: 90px;
-}
-
-#tabs li > a:link {
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.side  {
-  margin-top: 0px;
-  border-width: 0;
-  padding: 1em 1.4em;
-}
-
-#tabs .side li {
-  text-align: left;
-}
-
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-  border: 1px solid rgb(204, 204, 204);
-}
+/* ALERTS */
 
 .alert-container {
   float: right;
@@ -142,39 +83,75 @@ nav  {
   background-color: rgb(209, 29, 19);
 }
 
-.selectDiv {
-  width: 300px;
-  height: 28px;
-  line-height: 28px;
-  overflow: hidden;
-  background: url('../icons/select_arrow.png') no-repeat right #FEFEFE;
-  border: #ccc 1px solid;
-  -webkit-border-radius: 3px;
+/* HELP CLASSES */
+
+.rigth {
+  float: right;
+}
+
+/* USER MENU */
+
+.user-menu {
+  border: 1px solid #cccccc;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0px 0px 10px 1px #FEFEFE;
-  box-shadow: inset 0px 0px 10px 1px #FEFEFE;
-  margin: 0px;
-  padding: 0px;
-  position:  relative;
-  z-index: 100;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
-.bold_list  {
-  font-weight: bold;
+.user-menu a {
+  padding: 5px 15px;
 }
 
+.user-menu>a {
+  padding: 0;
+}
 
-table {
+.user-button {
+  line-height: 1.8;
+  padding: 5px 10px 3px 6px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.user-menu img {
+  border: 0;
+  vertical-align: top;
+  margin-top: 0px;
+  margin: 4px 0 0 4px;
+  border-radius: 2px;
+}
+
+.caret {
+  border-top-color: #cccccc;
+  margin-top: 9px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid #000000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+}
+
+.dropdown {
+  left: auto;
+  right: -1px;
+  border-radius: 3px 0 3px 3px;
+  border: 1px solid rgb(204, 204, 204);
   background-color: white;
-  width: 100%;
-  padding: 5px;
+  list-style: none;
+  padding: 5px 0;
+  font-size: 14px;
+  margin: 0;
+  display: none;
 }
 
-table tr {
-  text-align: left;
+.dropdown li {
+  padding-left: 5px;
 }
 
-/* JQuery-ui style overrides */
+/* TABS */
 
 .ui-tabs  {
   margin: 0px;
@@ -230,23 +207,48 @@ table tr {
   background: white;
 }
 
-.rigth {
-  float: right;
+#tabs {
+  font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+  font-size: 1.1em;
 }
 
-.dropdown {
-  left: auto;
-  right: -1px;
-  border-radius: 3px 0 3px 3px;
-  border: 1px solid rgb(204, 204, 204);
-  background-color: white;
+#tabs li  {
+  text-align: center;
+  box-sizing: border-box;
   list-style: none;
-  padding: 5px 0;
-  font-size: 14px;
-  margin: 0;
-  display: none;
+  float: left;
 }
 
-.dropdown li {
-  padding-left: 5px;
+#tabs a  {
+  display: block;
+}
+
+#tabs li.ui-state-default a {
+  width: 90px;
+}
+
+#tabs li.ui-state-default {
+  width: 90px;
+}
+
+#tabs li > a:link {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.side  {
+  margin-top: 0px;
+  border-width: 0;
+  padding: 1em 1.4em;
+}
+
+#tabs .side li {
+  text-align: left;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  border: 1px solid rgb(204, 204, 204);
 }

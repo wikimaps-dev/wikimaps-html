@@ -2,20 +2,18 @@
 <html lang="en-US" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<title>Wikimaps - HTML structure</title>
 
 		<link rel="stylesheet" type="text/css" href="css/mw-ui.css" />
-		<link rel="stylesheet" type="text/css" href="css/id-editor.css" />
 		<link rel="stylesheet" type="text/css" href="css/wikimaps-style.css" />
 
 		<script src="jquery-ui/jquery.js"></script>
 		<script src="jquery-ui/jquery-ui.js"></script>
 	</head>
 	<body>
-		<div id="id-container" class="id-container mode-select">
+		<div class="container">
 			<!-- LEFT column starts-->
-			<div class="col4 sidebar">
+			<div class="sidebar">
 				<!-- TABS starts-->
 				<div id="tabs">
 					<ul>
@@ -82,18 +80,6 @@
 								<td><img src="icons/trashbin.png"/></td>
 							</tr>
 						</table>
-
-						<div class="selectDiv" data-dropdown="#dropdown-1">
-							<div class="bold_list">Choose your image type</div>
-						</div>
-						<!-- Static dropdowns -->
-						<div id="dropdown-1" class="dropdown">
-							<ul class="dropdown-menu">
-								<li><a href="#1"><div class="bold_list">Choose your image type</div>Modern map</a></li>
-								<li><a href="#2"><div class="bold_list">Choose your image type</div>Historical map</a></li>
-								<li><a href="#3"><div class="bold_list">Choose your image type</div>Aerial image</a></li>
-							</ul>
-						</div>
 					</div>
 					<!-- TOOLS tab ends -->
 
@@ -108,19 +94,19 @@
 		<!-- LEFT column ends-->
 
 		<!-- RIGHT column starts-->
-		<div id="content">
-			<nav class="primary"> 
+		<div class="content">
+			<nav>
 				<div class="rigth">
 					<!-- USER MENU starts -->
-					<div class="user-menu logged-in">
-						<a href="#usermenu" id="usermenu-trigger">
-							<img class="user_thumbnail_tiny" width="25" height="25" src="icons/avatar.png" alt=""></img><span class="user-button">
-								<span class="username">User Name</span>
-								<b class="caret"></b>
+					<div class="user-menu">
+						<a href="#" id="user-menu-trigger">
+							<img width="25" height="25" src="icons/avatar.png" aria-hidden="true"></img><span class="user-button">
+								<span>User Name</span>
+								<b class="caret" aria-hidden="true"></b>
 							</span>
 						</a>
 					</div>
-					<ul class="dropdown usermenu">
+					<ul class="dropdown">
 						<li><a href="#" id="first-dropdown-link">My Settings</a></li>
 						<li><a href="#">My Maps</a></li>
 						<li><a href="#">Logout</a></li>
@@ -144,15 +130,7 @@
 			$("#tabs").tabs();
 		});
 
-		$('.selectDefault').text('2');
-
-		$('.selectBox').on('change', function() {
-			var defaulttext2 = $('.selectBox').find(":selected").text(); 
-			$('.selectDefault').text(defaulttext2);
-		});
-
-
-		$('#usermenu-trigger').on('click', function() {
+		$('#user-menu-trigger').on('click', function() {
 			if ($('.dropdown').is(':visible')) {
 				$('.dropdown').slideUp();
 			} else {

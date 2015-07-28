@@ -13,7 +13,6 @@ body {
   font: normal 12px/1.6667 'Helvetica Neue', Arial, sans-serif;
   min-width: 768px;
   color: #333;
-  overflow: hidden;
 }
 
 /* MAIN ELEMENTS */
@@ -26,7 +25,6 @@ body {
 
 .content {
   position: relative;
-  overflow: hidden;
   height: 100%;
   background-color: rgba(215, 215, 215, 1);
 }
@@ -40,6 +38,7 @@ body {
   background: #f6f6f6;
   border-color: black;
   border-width: 0px 0px 1px 0px;
+  overflow-y: auto;
 }
 
 nav {
@@ -89,6 +88,40 @@ nav {
 
 .rigth {
   float: right;
+}
+
+/* MAP BOXES */
+
+.map-box {
+  height: 100px;
+  width: 100%;
+  margin-top: 5px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 2px;
+}
+
+.map-box img {
+  height: 100%;
+}
+
+.map-box div {
+  float: right;
+  width: calc(100% - 103px);
+  padding-left: 3px;
+}
+
+.map-box div h4 {
+  margin: 0;
+  font-size: 110%;
+}
+
+.map-box div p {
+  margin: 0;
+}
+
+.map-box div b {
+  display: block;
+  margin-top: 11px;
 }
 
 /* USER MENU */
@@ -164,6 +197,7 @@ nav {
   border:  0px ;
   margin: 0px;
   padding: 0px;
+  position: fixed;
 }
 
 #tabs .ui-tabs-nav a {
@@ -239,10 +273,14 @@ nav {
   text-decoration: none;
 }
 
-.side  {
+.side {
   margin-top: 0px;
-  border-width: 0;
   padding: 1em 1.4em;
+  height: 100vh;
+}
+
+.side h2 {
+  margin-top: 90px;
 }
 
 #tabs .side li {

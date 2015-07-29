@@ -98,6 +98,7 @@ nav {
   margin-top: 5px;
   border: 1px solid rgb(204, 204, 204);
   border-radius: 2px;
+  background-color: white;
 }
 
 .map-box img {
@@ -124,10 +125,35 @@ nav {
   margin-top: 11px;
 }
 
+/* EXTENDED BOXES */
+
+.extended-box-top {
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgb(204, 204, 204);
+  margin: auto;
+  margin-top: 3px;
+  transform:rotate(-45deg);
+  -moz-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+  background-color: white;
+}
+
+.extended-box {
+  width: 100%;
+  position: relative;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 2px;
+  background-color: white;
+  margin-top: -6px;
+  margin-bottom: 5px;
+  z-index: 100;
+}
+
 /* USER MENU */
 
 .user-menu {
-  border: 1px solid #cccccc;
+  border: 1px solid rgb(204, 204, 204);
   border-radius: 3px;
   margin-right: 8px;
   margin-top: 10px;
@@ -211,6 +237,7 @@ nav {
   margin: 0px;
   padding: 0px;
   position: fixed;
+  z-index: 500;
 }
 
 #tabs .ui-tabs-nav a {

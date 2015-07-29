@@ -58,6 +58,14 @@
 									<b>Edited 5 minutes ago</b>
 								</div>
 							</div>
+							<div class="extended-box-top" aria-hidden="true"></div>
+							<div class="extended-box">
+								placeholder
+								<br>
+								placeholder
+								<br>
+								placeholder
+							</div>
 							<div class="map-box">
 								<img aria-hidden="true" src="http://fakeimg.pl/300/" />
 								<div>
@@ -153,31 +161,14 @@
 				<h2>Leaflet here</h2>
 			</div>
 			<div class="alert-container">
-				<div class="alert progressive">Weeeehooo!</div>
-				<div class="alert negative">Damn :-(</div>
-				<div class="alert">You are good to go!</div>
 			</div>
 		</div>
 		<!-- RIGHT column ends -->
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#tabs").tabs();
-		});
-
-		$('#user-menu-trigger').on('click', function() {
-			if ($('.dropdown').is(':visible')) {
-				$('.dropdown').slideUp();
-			} else {
-				console.log('down/focus');
-				$('.dropdown').slideDown();
-				$('#first-dropdown-link').focus();
-			}
-		});
-
-		$('.dropdown').focusout(function() {
-			$('.dropdown').slideUp();
-		});
+	<script src="js/ui.js"></script>
+	<script src="js/app.js"></script>
+	<script>
+		warper.init();
 	</script>
 	</body>
 </html>

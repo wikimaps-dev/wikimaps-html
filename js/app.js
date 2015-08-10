@@ -197,6 +197,32 @@ var W_LEAFLET = {
 		}
 	},
 
+	openMarker: function (map_id) {
+
+		if(this.clustering) {
+			var currentLayer = this.clusterLayer;
+		} else {
+			var currentLayer = this.featureLayer;
+		}
+		
+		currentLayer.eachLayer(function (layer) {
+			if (layer.options.map_id == map_id) {
+				layer.openPopup();
+				if(W_LEAFLET.boundsMarker)
+					W_LEAFLET.map.removeLayer(W_LEAFLET.boundsMarker);
+					
+				W_LEAFLET.boundsMarker = L.polyline(layer.options.points, { });
+				W_LEAFLET.map.addLayer(W_LEAFLET.boundsMarker);
+				// if clustering is NOT enabled, then zoom to map bounds
+				if(!W_LEAFLET.clustering) {
+					W_LEAFLET.map.fitBounds(W_LEAFLET.boundsMarker.getBounds(),{'paddingTopLeft':[150,350]});
+					
+				}
+			}
+		});	
+		
+	},
+
 	// set z-indexes of maps based on sortable layers div
 	updateZIndexes: function() {
 		var layer_order = $("#layer_list" ).sortable('toArray').reverse();

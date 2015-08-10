@@ -18,20 +18,20 @@ $(document).ready(function(){
 	// make a geosearch every time when map stops moving
 	W_LEAFLET.map.on('moveend', function() {
 		if (W_LEAFLET.geo_search == 1) {
-			W_API.getGeoSearch(map.getBounds(), showSearch);
+			W_API.geoSearch(map.getBounds(), showSearch);
 		}
 	});
 
 	// map title search binding
 	$('#map_search').keypress(function(e){
 		if(e.which == 13){//Enter key pressed
-			W_LEAFLET.searchByTitle(this.value);
+			W_API.textSearch(this.value, showSearch);
 		}
 	});
 
 	// clicking a map thumbnail in marker popup opens the map
-	$(document).on('click','#maplist li', function(event) {
-		showMap($(this).attr('id'));
+	$('#search-result-container').on('click','img', function(event) {
+		showMapFromList($(this).parent().data('map_id'));
 		event.preventDefault();
 	});
 
@@ -112,6 +112,17 @@ function showMap(map_id) {
 	
 }
 
+// show individual map
+function showMapFromList(map_id) {
+	
+	// fit bounds first
+	W_LEAFLET.openMarker(map_id);
+	// then show the map
+	//W_API.getMapInfo(map_id, createLayerDiv)
+	
+}
+
+
 // show the result of search as markers and list
 function showSearch(data) {
 
@@ -125,11 +136,18 @@ function showSearch(data) {
 function createMapList (data, target) {
     var items = [];
     $.each( data.items, function( key, val ) {
-        items.push( '<li id="' + val.id + '"><a>' + decodeURIComponent(val.title.replace(/_/g,' ')) + '</a></li>' );
+		var html = '<div class="map-box" data-map_id="' + val.id + '">'
+			+ '<img aria-hidden="true" src="'+W_LEAFLET.base_url+'/maps/thumb/' + val.id + '" />'
+		    + '     <div>'
+		    + '        <h4>' + decodeURIComponent(val.title.replace(/_/g,' ')) + '</h4>'
+            + '         <p>' + decodeURIComponent(val.description) + '</p>'
+		    + '     </div>'
+			+ '</div>';
+			
+        items.push( html );
     });
     $(target ).empty();
-    $( "<ul/>", {"class": "my-new-list",html: items.join( "" )
-        }).appendTo( target );			
+    $(target).append( items.join('') );
 }
 
 // create item in layers section

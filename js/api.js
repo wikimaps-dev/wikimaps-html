@@ -7,11 +7,17 @@ var W_API = {
 		
 	},
 
-    getGeoSearch: function (bounds, callback ) {
+    geoSearch: function (bounds, callback ) {
 
 		var bbox = bounds.getWest()+','+bounds.getSouth()+','+bounds.getEast()+','+bounds.getNorth();
 		var query_url = W_API.api_url + '/maps/geosearch?bbox='+bbox+'&format=json&page=1&operation=intersect'
 		W_API.getJSON (query_url, callback);
+		
+	},
+
+    textSearch: function (bounds, callback ) {
+
+		alert('Text search not implemented yet!');
 		
 	},
 	
@@ -31,18 +37,18 @@ var W_API = {
 		});			
 	},
 
-  alert: function(type, message) {
-    var validAlertTypes = ['progressive', 'negative', 'default'];
-    console.log(validAlertTypes.type);
+	alert: function(type, message) {
+		var validAlertTypes = ['progressive', 'negative', 'default'];
+		console.log(validAlertTypes.type);
 
-    if ($.inArray(validAlertTypes, type)) {
-      $('.alert-container').append('<div class="alert ' + type +'">' + message + '</div>');
-      setTimeout(function() {
-        $('.alert-container .alert').first().remove();
-      }, 6000);
-    } else {
-      console.log('invalid alert type');
-    }
-  }
+		if ($.inArray(validAlertTypes, type)) {
+			$('.alert-container').append('<div class="alert ' + type +'">' + message + '</div>');
+			setTimeout(function() {
+				$('.alert-container .alert').first().remove();
+			}, 6000);
+		} else {
+			console.log('invalid alert type');
+		}
+	  }
 
 }

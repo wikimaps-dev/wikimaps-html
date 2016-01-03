@@ -23,7 +23,7 @@ $(document).ready(function() {
   // map title search binding
   $('#map_search').keypress(function(e){
     // if enter key pressed
-    if(e.which == 13) {
+    if (e.which == 13) {
       warper.textSearch(this.value, showSearch);
     }
   });
@@ -76,7 +76,7 @@ $(document).ready(function() {
     position: 'topleft'
   });
 
-  bounds.onAdd = function (map) {
+  bounds.onAdd = function(map) {
     var div = L.DomUtil.create('div', 'show map coverage');
     div.innerHTML = '<form><input id="bounds" ' + 'type="checkbox"/>bounds</form>'; 
     return div;

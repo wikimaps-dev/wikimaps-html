@@ -1,18 +1,18 @@
 var warper = {
   apiUrl: 'http://warper.wmflabs.org',
 
-  getMapInfo: function (mapId, callback ) {
+  getMapInfo: function(mapId, callback ) {
     var queryUrl = warper.apiUrl + '/maps/' + mapId + '.json';
     warper.getJSON (queryUrl, callback);
   },
 
-  geoSearch: function (bounds, callback ) {
+  geoSearch: function(bounds, callback ) {
     var bbox = bounds.getWest() + ',' + bounds.getSouth() + ',' + bounds.getEast() + ',' + bounds.getNorth();
     var queryUrl = Warper.apiUrl + '/maps/geosearch?bbox=' + bbox + '&format=json&page=1&operation=intersect';
     warper.getJson (queryUrl, callback);
   },
 
-  textSearch: function (bounds, callback ) {
+  textSearch: function(bounds, callback ) {
     alert('Text search not implemented yet!');
   },
 

@@ -5,13 +5,13 @@ var warperApp = {
     geoSearch:      true,
     clustering:     false,
     bounds:         false,
-    boundsOpacity: 0.5,
-    boundsColor:   'blue',
-    boundsWeight:  2,
+    boundsOpacity:  0.5,
+    boundsColor:    'blue',
+    boundsWeight:   2,
     markers:        [],
 
 
-  init: function () {
+  init: function() {
     // set up the map
     map = new L.Map(this.mapElement);
     this.map = map;
@@ -43,11 +43,11 @@ var warperApp = {
     });
   },
 
-  setView: function (lat, lon, zoom) {
+  setView: function(lat, lon, zoom) {
     this.map.setView(new L.LatLng(lat,lon),zoom);
   },
 
-  showMap: function (mapId, data) {
+  showMap: function(mapId, data) {
     var bbox = data.items.bbox.split(',');
     var bounds = new L.LatLngBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
     this.map.fitBounds(bounds);
@@ -74,7 +74,7 @@ var warperApp = {
     this.updateZIndexes();
   },
 
-  getCurrentMap: function () {
+  getCurrentMap: function() {
     return this.mapId;
   },
 
@@ -101,30 +101,30 @@ var warperApp = {
   },
 
   // create markers and popups for maps from json returned by warper
-  createMapMarkers: function (data) {
+  createMapMarkers: function(data) {
 
-    if(this.clustering) {
+    if (this.clustering) {
       var currentLayer = this.clusterLayer;
     } else {
       var currentLayer = this.featureLayer;
     }
 
     var mapList = [];
-    currentLayer.eachLayer(function (layer) {
+    currentLayer.eachLayer(function(layer) {
       console.log(layer.options.mapId)
       mapList.push(parseInt(layer.options.mapId));
     });
 
     // we want to keep existing markers and just add new ones when necessary
     for (var i = 0; i < data.items.length; i++) {
-      if($.inArray(parseInt(data.items[i].id), mapList) == -1) {
+      if ($.inArray(parseInt(data.items[i].id), mapList) == -1) {
         console.log('map ' + data.items[i].id + ' not found, creating marker');
         currentLayer.addLayer(this.createMarker(data.items[i]));
       }
     }
   },
 
-  createMarker: function (data) {
+  createMarker: function(data) {
     var description = 'None';
     var title = decodeURIComponent(data.title.replace(/_/g,' '));
     if (data.description)
@@ -146,25 +146,25 @@ var warperApp = {
   },
 
   // create map bounds from json returned by warper
-  createMapBounds: function (data) {
+  createMapBounds: function(data) {
 
     var currentLayer = this.boundsLayer;
     var mapList = [];
 
-    currentLayer.eachLayer(function (layer) {
+    currentLayer.eachLayer(function(layer) {
       mapList.push(parseInt(layer.options.mapId));
     });
 
     // we want to keep existing bounds and just add new ones when necessary
     for (var i = 0; i < data.items.length; i++) {
-      if($.inArray(parseInt(data.items[i].id), mapList) == -1) {
+      if ($.inArray(parseInt(data.items[i].id), mapList) == -1) {
         console.log('map ' + data.items[i].id + ' not found, creating bounds');
         currentLayer.addLayer(this.createBound(data.items[i]));
       }
     }
   },
 
-  createBound: function (data) {
+  createBound: function(data) {
     var bbox = data.bbox.split(',');
     var points = this.getBoundsPoints(bbox);
 
@@ -176,8 +176,8 @@ var warperApp = {
     });
   },
 
-  markerClick: function (e) {
-    if(warperApp.boundsMarker) {
+  markerClick: function(e) {
+    if (warperApp.boundsMarker) {
       warperApp.map.removeLayer(warperApp.boundsMarker);
     }
 
@@ -185,30 +185,30 @@ var warperApp = {
     warperApp.map.addLayer(warperApp.boundsMarker);
 
     // if clustering is NOT enabled, then zoom to map bounds
-    if(!warperApp.clustering) {
+    if (!warperApp.clustering) {
       warperApp.map.fitBounds(warperApp.boundsMarker.getBounds(),{'paddingTopLeft':[150,350]});
     }
   },
 
-  openMarker: function (mapId) {
+  openMarker: function(mapId) {
 
-    if(this.clustering) {
+    if (this.clustering) {
       var currentLayer = this.clusterLayer;
     } else {
       var currentLayer = this.featureLayer;
     }
 
-    currentLayer.eachLayer(function (layer) {
+    currentLayer.eachLayer(function(layer) {
       if (layer.options.mapId == mapId) {
         layer.openPopup();
-        if(warperApp.boundsMarker) {
+        if (warperApp.boundsMarker) {
           warperApp.map.removeLayer(warperApp.boundsMarker);
         }
 
         warperApp.boundsMarker = L.polyline(layer.options.points, { });
         warperApp.map.addLayer(warperApp.boundsMarker);
         // if clustering is NOT enabled, then zoom to map bounds
-        if(!warperApp.clustering) {
+        if (!warperApp.clustering) {
           warperApp.map.fitBounds(warperApp.boundsMarker.getBounds(),{'paddingTopLeft':[150,350]});
         }
       }

@@ -1,29 +1,29 @@
-var W_LEAFLET = {
-    map_div:       'map',
-    base_url:      'http://warper.wmflabs.org',
+var warperApp = {
+    mapElement:     'map',
+    baseUrl:        'http://warper.wmflabs.org',
     layers:         {},
-    geo_search:     true,
+    geoSearch:      true,
     clustering:     false,
     bounds:         false,
-    bounds_opacity: 0.5,
-    bounds_color:   'blue',
-    bounds_weight:  2,
+    boundsOpacity: 0.5,
+    boundsColor:   'blue',
+    boundsWeight:  2,
     markers:        [],
 
 
   init: function () {
     // set up the map
-    map = new L.Map(this.map_div);
+    map = new L.Map(this.mapElement);
     this.map = map;
 
     // create the base map layer 
-    var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
     var osm = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 20, attribution: osmAttrib});
-    this.osm_layer = osm;
+    this.osmLayer = osm;
 
     // initial view
-    this.map.setView(new L.LatLng(60.1619343018,24.9516973282),12); // Helsinki
+    this.map.setView(new L.LatLng(60.1619343018, 24.9516973282), 12); // Helsinki
     this.map.addLayer(osm);
 
     var clusterLayer = L.markerClusterGroup();
@@ -39,7 +39,7 @@ var W_LEAFLET = {
     if (this.bounds) this.map.addLayer(this.boundsLayer);
 
     this.map.on('popupclose', function() {
-      W_LEAFLET.map.removeLayer(W_LEAFLET.boundsMarker);
+      warperApp.map.removeLayer(warperApp.boundsMarker);
     });
   },
 
@@ -47,56 +47,56 @@ var W_LEAFLET = {
     this.map.setView(new L.LatLng(lat,lon),zoom);
   },
 
-  showMap: function (map_id, data) {
+  showMap: function (mapId, data) {
     var bbox = data.items.bbox.split(',');
     var bounds = new L.LatLngBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
     this.map.fitBounds(bounds);
 
-    this.map_id = map_id;
+    this.mapId = mapId;
 
     // create the tile layer 
-    var url= W_LEAFLET.base_url+'/maps/tile/'+this.map_id+'/{z}/{x}/{y}.png';
-    var attr='<a href="http://commons.wikimedia.org">Wikimedia Commons</a> contributors';
-    var old_map = new L.TileLayer(url, {
+    var url = warperApp.baseUrl + '/maps/tile/' + this.mapId + '/{z}/{x}/{y}.png';
+    var attr = '<a href="http://commons.wikimedia.org">Wikimedia Commons</a> contributors';
+    var oldMap = new L.TileLayer(url, {
       minZoom: 8, 
       maxZoom: 20, 
       attribution: attr
     });
 
-    this.layers['m'+map_id] = {
-      'map_id':map_id, 
-      'layer':old_map,
+    this.layers['m' + mapId] = {
+      'mapId':mapId, 
+      'layer':oldMap,
       'url':url, 
       'bounds':bounds
     };
 
-    this.map.addLayer(old_map)
+    this.map.addLayer(oldMap)
     this.updateZIndexes();
   },
 
   getCurrentMap: function () {
-    return this.map_id;
+    return this.mapId;
   },
 
   toggleClustering: function() {
-    console.log(W_LEAFLET.clustering);
-    W_LEAFLET.clustering = !W_LEAFLET.clustering;
-    console.log(W_LEAFLET.clustering);
-    if (W_LEAFLET.clustering) {
-      W_LEAFLET.map.removeLayer(W_LEAFLET.featureLayer);
-      W_LEAFLET.map.addLayer(W_LEAFLET.clusterLayer);
+    console.log(warperApp.clustering);
+    warperApp.clustering = !warperApp.clustering;
+    console.log(warperApp.clustering);
+    if (warperApp.clustering) {
+      warperApp.map.removeLayer(warperApp.featureLayer);
+      warperApp.map.addLayer(warperApp.clusterLayer);
     } else {
-      W_LEAFLET.map.removeLayer(W_LEAFLET.clusterLayer);
-      W_LEAFLET.map.addLayer(W_LEAFLET.featureLayer);
+      warperApp.map.removeLayer(warperApp.clusterLayer);
+      warperApp.map.addLayer(warperApp.featureLayer);
     }
   },
 
   toggleBounds: function() {
-    W_LEAFLET.bounds = !W_LEAFLET.bounds;
-    if (W_LEAFLET.bounds) {
-      W_LEAFLET.map.addLayer(W_LEAFLET.boundsLayer);
+    warperApp.bounds = !warperApp.bounds;
+    if (warperApp.bounds) {
+      warperApp.map.addLayer(warperApp.boundsLayer);
     } else {
-      W_LEAFLET.map.removeLayer(W_LEAFLET.boundsLayer);
+      warperApp.map.removeLayer(warperApp.boundsLayer);
     }
   },
 
@@ -111,8 +111,8 @@ var W_LEAFLET = {
 
     var mapList = [];
     currentLayer.eachLayer(function (layer) {
-      console.log(layer.options.map_id)
-      mapList.push(parseInt(layer.options.map_id));
+      console.log(layer.options.mapId)
+      mapList.push(parseInt(layer.options.mapId));
     });
 
     // we want to keep existing markers and just add new ones when necessary
@@ -134,14 +134,14 @@ var W_LEAFLET = {
     var points = this.getBoundsPoints(bbox);
 
     var marker = L.marker(new L.LatLng(bbox[3], bbox[0]), {
-      map_id:data.id,
+      mapId:data.id,
       title: title,
       desc:description,
       points:points
     });
 
-    marker.on('click', W_LEAFLET.markerClick);
-    marker.bindPopup('<div data-map_id="' + data.id + '" ><img class="mapimg" src="' + W_LEAFLET.base_url + '/maps/thumb/' + data.id +'" /><div>' + title + '</div><p>' + description+'</p>');
+    marker.on('click', warperApp.markerClick);
+    marker.bindPopup('<div data-mapId="' + data.id + '" ><img class="mapimg" src="' + warperApp.baseUrl + '/maps/thumb/' + data.id +'" /><div>' + title + '</div><p>' + description+'</p>');
     return marker;
   },
 
@@ -152,7 +152,7 @@ var W_LEAFLET = {
     var mapList = [];
 
     currentLayer.eachLayer(function (layer) {
-      mapList.push(parseInt(layer.options.map_id));
+      mapList.push(parseInt(layer.options.mapId));
     });
 
     // we want to keep existing bounds and just add new ones when necessary
@@ -169,28 +169,28 @@ var W_LEAFLET = {
     var points = this.getBoundsPoints(bbox);
 
     return L.polyline(points, {
-      map_id:data.id,
-      color: this.bounds_color,
-      weight:this.bounds_weight,
-      opacity:this.bounds_opacity
+      mapId:data.id,
+      color: this.boundsColor,
+      weight:this.boundsWeight,
+      opacity:this.boundsOpacity
     });
   },
 
   markerClick: function (e) {
-    if(W_LEAFLET.boundsMarker) {
-      W_LEAFLET.map.removeLayer(W_LEAFLET.boundsMarker);
+    if(warperApp.boundsMarker) {
+      warperApp.map.removeLayer(warperApp.boundsMarker);
     }
 
-    W_LEAFLET.boundsMarker = L.polyline(this.options.points, { });
-    W_LEAFLET.map.addLayer(W_LEAFLET.boundsMarker);
+    warperApp.boundsMarker = L.polyline(this.options.points, { });
+    warperApp.map.addLayer(warperApp.boundsMarker);
 
     // if clustering is NOT enabled, then zoom to map bounds
-    if(!W_LEAFLET.clustering) {
-      W_LEAFLET.map.fitBounds(W_LEAFLET.boundsMarker.getBounds(),{'paddingTopLeft':[150,350]});
+    if(!warperApp.clustering) {
+      warperApp.map.fitBounds(warperApp.boundsMarker.getBounds(),{'paddingTopLeft':[150,350]});
     }
   },
 
-  openMarker: function (map_id) {
+  openMarker: function (mapId) {
 
     if(this.clustering) {
       var currentLayer = this.clusterLayer;
@@ -199,17 +199,17 @@ var W_LEAFLET = {
     }
 
     currentLayer.eachLayer(function (layer) {
-      if (layer.options.map_id == map_id) {
+      if (layer.options.mapId == mapId) {
         layer.openPopup();
-        if(W_LEAFLET.boundsMarker) {
-          W_LEAFLET.map.removeLayer(W_LEAFLET.boundsMarker);
+        if(warperApp.boundsMarker) {
+          warperApp.map.removeLayer(warperApp.boundsMarker);
         }
 
-        W_LEAFLET.boundsMarker = L.polyline(layer.options.points, { });
-        W_LEAFLET.map.addLayer(W_LEAFLET.boundsMarker);
+        warperApp.boundsMarker = L.polyline(layer.options.points, { });
+        warperApp.map.addLayer(warperApp.boundsMarker);
         // if clustering is NOT enabled, then zoom to map bounds
-        if(!W_LEAFLET.clustering) {
-          W_LEAFLET.map.fitBounds(W_LEAFLET.boundsMarker.getBounds(),{'paddingTopLeft':[150,350]});
+        if(!warperApp.clustering) {
+          warperApp.map.fitBounds(warperApp.boundsMarker.getBounds(),{'paddingTopLeft':[150,350]});
         }
       }
     });
@@ -217,9 +217,9 @@ var W_LEAFLET = {
 
   // set z-indexes of maps based on sortable layers div
   updateZIndexes: function() {
-    var layer_order = $("#layer_list" ).sortable('toArray').reverse();
-    for (i=0; i < layer_order.length; i++) {
-      var layer = W_LEAFLET.layers['m' + layer_order[i]];
+    var layerOrder = $("#layer_list" ).sortable('toArray').reverse();
+    for (i=0; i < layerOrder.length; i++) {
+      var layer = warperApp.layers['m' + layerOrder[i]];
       layer.layer.setZIndex(100 + i);
     }
   },

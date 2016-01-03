@@ -5,18 +5,18 @@ $(document).ready(function() {
   $('.alert-container').hide();
 
   // currently we use proxy because of cross domain restrictions
-  W_API.api_url = 'http://wikihacks.opendimension.org/wmaps_html/proxy.php?query=warper&url=';
+  warper.apiUrl = 'http://wikihacks.opendimension.org/wmaps_html/proxy.php?query=warper&url=';
 
   // init leaflet
-  W_LEAFLET.base_url = 'http://warper.wmflabs.org';
-  W_LEAFLET.init();
-  W_LEAFLET.setView(60.1619343018, 24.9516973282, 12);
+  warperApp.baseUrl = 'http://warper.wmflabs.org';
+  warperApp.init();
+  warperApp.setView(60.1619343018, 24.9516973282, 12);
 
 
   // make a geosearch every time when map stops moving
-  W_LEAFLET.map.on('moveend', function() {
-    if (W_LEAFLET.geo_search == 1) {
-      W_API.geoSearch(map.getBounds(), showSearch);
+  warperApp.map.on('moveend', function() {
+    if (warperApp.geoSearch == 1) {
+      warper.geoSearch(map.getBounds(), showSearch);
     }
   });
 
@@ -24,7 +24,7 @@ $(document).ready(function() {
   $('#map_search').keypress(function(e){
     // if enter key pressed
     if(e.which == 13) {
-      W_API.textSearch(this.value, showSearch);
+      warper.textSearch(this.value, showSearch);
     }
   });
 
@@ -36,27 +36,27 @@ $(document).ready(function() {
 
   // clicking a map thumbnail in marker popup opens the map
   $(document).on('click', '.mapimg', function() {
-    W_LEAFLET.map.closePopup();
+    warperApp.map.closePopup();
     showMap($(this).parent().data('map_id'));
   });
 
   // clicking a map thumbnail in layers section zooms to map
   $('#layer_list').on('click', 'img', function() {
-    var map_id = $(this).parent().data('map_id');
-    W_LEAFLET.map.fitBounds(W_LEAFLET.layers['m' + map_id].bounds);
+    var mapId = $(this).parent().data('map_id');
+    warperApp.map.fitBounds(warperApp.layers['m' + mapId].bounds);
   });
 
   $('#layer_list').on('click', '.delete', function() {
-    var map_id = $(this).parent().data('map_id');
+    var mapId = $(this).parent().data('map_id');
     $(this).parent().remove();
-    W_LEAFLET.map.removeLayer(W_LEAFLET.layers['m' + map_id].layer);
+    warperApp.map.removeLayer(warperApp.layers['m' + mapId].layer);
   });
 
   //// make layer list sortable 
   $('#layer_list').sortable({
     handle: '.handle',
     update:function(event, ui) {
-      W_LEAFLET.updateZIndexes();
+      warperApp.updateZIndexes();
     }
   });
 
@@ -69,8 +69,8 @@ $(document).ready(function() {
     return div;
   };
 
-  clustering.addTo(W_LEAFLET.map);
-  document.getElementById('clustering').addEventListener('click', W_LEAFLET.toggleClustering, false);
+  clustering.addTo(warperApp.map);
+  document.getElementById('clustering').addEventListener('click', warperApp.toggleClustering, false);
 
   var bounds = L.control({
     position: 'topleft'
@@ -82,8 +82,8 @@ $(document).ready(function() {
     return div;
   };
 
-  bounds.addTo(W_LEAFLET.map);
-  document.getElementById('bounds').addEventListener ('click', W_LEAFLET.toggleBounds, false);
+  bounds.addTo(warperApp.map);
+  document.getElementById('bounds').addEventListener ('click', warperApp.toggleBounds, false);
 
 // *************** SOME TEST CONTROLS ENDS ***********************
 
@@ -102,26 +102,26 @@ $(document).ready(function() {
 });
 
 // show individual map
-function showMap(map_id) {
+function showMap(mapId) {
   // fit bounds first
-  W_LEAFLET.map.fitBounds(W_LEAFLET.boundsMarker.getBounds());
+  warperApp.map.fitBounds(warperApp.boundsMarker.getBounds());
   // then show the map
-  W_API.getMapInfo(map_id, createLayerDiv)
+  warper.getMapInfo(mapId, createLayerDiv)
 }
 
 // show individual map
-function showMapFromList(map_id) {
+function showMapFromList(mapId) {
   // fit bounds first
-  W_LEAFLET.openMarker(map_id);
+  warperApp.openMarker(mapId);
   // then show the map
-  //W_API.getMapInfo(map_id, createLayerDiv)
+  //warper.getMapInfo(mapId, createLayerDiv)
 }
 
 
 // show the result of search as markers and list
 function showSearch(data) {
-  W_LEAFLET.createMapMarkers(data);
-  W_LEAFLET.createMapBounds(data);
+  warperApp.createMapMarkers(data);
+  warperApp.createMapBounds(data);
   createMapList(data, '.search-result-container');
 }
 
@@ -129,7 +129,7 @@ function showSearch(data) {
 function createMapList (data, target) {
   var items = [];
   $.each(data.items, function(key, val) {
-    var html = '<div class="map-box" data-map_id="' + val.id + '">' + '<img aria-hidden="true" src="' + W_LEAFLET.base_url + '/maps/thumb/' + val.id + '" />' + '     <div>' + '        <h4>' + decodeURIComponent(val.title.replace(/_/g, ' ')) + '</h4>' + '         <p>' + decodeURIComponent(val.description) + '</p>'+ '     </div>' + '</div>';
+    var html = '<div class="map-box" data-map_id="' + val.id + '">' + '<img aria-hidden="true" src="' + warperApp.baseUrl + '/maps/thumb/' + val.id + '" />' + '     <div>' + '        <h4>' + decodeURIComponent(val.title.replace(/_/g, ' ')) + '</h4>' + '         <p>' + decodeURIComponent(val.description) + '</p>'+ '     </div>' + '</div>';
     items.push( html );
   });
 
@@ -140,7 +140,7 @@ function createMapList (data, target) {
 // create item in layers section
 function createLayerDiv(data) {
   // create
-  $("#layer_list" ).prepend( '<div class="img_list_div" id="' + data.items.id + '" data-map_id="' + data.items.id + '"><img src="' + W_LEAFLET.base_url + '/maps/thumb/' + data.items.id + '" /><span class="handle"></span><div class="delete">X</div><div class="mapinfo">' + decodeURIComponent(data.items.title.replace(/_/g,' ')) + '</div><div class="slider"></div></div>' );
+  $("#layer_list" ).prepend( '<div class="img_list_div" id="' + data.items.id + '" data-map_id="' + data.items.id + '"><img src="' + warperApp.baseUrl + '/maps/thumb/' + data.items.id + '" /><span class="handle"></span><div class="delete">X</div><div class="mapinfo">' + decodeURIComponent(data.items.title.replace(/_/g,' ')) + '</div><div class="slider"></div></div>' );
 
   // set transparency slider
     $( "#layer_list .slider:first" ).slider({
@@ -148,20 +148,20 @@ function createLayerDiv(data) {
       max:100,
       value:100,
       slide: function(event, ui) {
-        map_id = $(event.target).parent().attr('id');
-        W_LEAFLET.layers['m' + map_id].layer.setOpacity(sliderToOpacity(ui.value))
+        mapId = $(event.target).parent().attr('id');
+        warperApp.layers['m' + mapId].layer.setOpacity(sliderToOpacity(ui.value))
       }
   });
 
   // show map
-  W_LEAFLET.showMap(data.items.id, data);
+  warperApp.showMap(data.items.id, data);
 }
 
 // mapping function
 function sliderToOpacity (value) {
-  var in_min = 0;
-  var in_max = 100;
-  var out_min = 0;
-  var out_max = 1;
-  return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  var inMin = 0;
+  var inMax = 100;
+  var outMin = 0;
+  var outMax = 1;
+  return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }

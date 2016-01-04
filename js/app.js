@@ -17,9 +17,9 @@ var warperApp = {
     this.map = map;
 
     // create the base map layer 
-    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-    var osm = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 20, attribution: osmAttrib});
+    var osmUrl = 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png';
+    var osmAttrib = 'Wikimedia maps beta | Map data &copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>';
+    var osm = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 18, attribution: osmAttrib});
     this.osmLayer = osm;
 
     // initial view

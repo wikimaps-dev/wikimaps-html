@@ -1,26 +1,26 @@
-var W_API = {
-  api_url: 	'http://warper.wmflabs.org',
+var warper = {
+  apiUrl: 'http://warper.wmflabs.org',
 
-  getMapInfo: function (map_id, callback ) {
-    var query_url = W_API.api_url + "/maps/"+map_id+".json";
-    W_API.getJSON (query_url, callback);
+  getMapInfo: function(mapId, callback ) {
+    var queryUrl = warper.apiUrl + '/maps/' + mapId + '.json';
+    warper.getJSON (queryUrl, callback);
   },
 
-  geoSearch: function (bounds, callback ) {
-    var bbox = bounds.getWest()+','+bounds.getSouth()+','+bounds.getEast()+','+bounds.getNorth();
-    var query_url = W_API.api_url + '/maps/geosearch?bbox='+bbox+'&format=json&page=1&operation=intersect'
-    W_API.getJSON (query_url, callback);
+  geoSearch: function(bounds, callback ) {
+    var bbox = bounds.getWest() + ',' + bounds.getSouth() + ',' + bounds.getEast() + ',' + bounds.getNorth();
+    var queryUrl = Warper.apiUrl + '/maps/geosearch?bbox=' + bbox + '&format=json&page=1&operation=intersect';
+    warper.getJson (queryUrl, callback);
   },
 
-    textSearch: function (bounds, callback ) {
-      alert('Text search not implemented yet!');
-    },
+  textSearch: function(bounds, callback ) {
+    alert('Text search not implemented yet!');
+  },
 
-  getJSON: function(url, callback) {
+  getJson: function(url, callback) {
     var request = $.ajax({
       url: url,
       method: 'GET',
-      dataType: "json"
+      dataType: 'json'
     });
 
     request.done(function(data) {
@@ -28,7 +28,7 @@ var W_API = {
     });
 
     request.fail(function() {
-      W_API.alert('negative', 'The Warper seams to be offline.');
+      warper.alert('negative', 'The Warper seams to be offline.');
     });
   },
 
